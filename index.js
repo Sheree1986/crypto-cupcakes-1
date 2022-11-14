@@ -47,6 +47,16 @@ app.use(auth(config));
   // create a GET / route handler that sends back Logged in or Logged out
 
 // req.isAuthenticated is provided from the auth router
+
+app.use(async (req, res, next) => {
+const [ User ] = await User.findOrCreate({
+where: {name: 'Batman'}
+
+})
+next(),
+console.log(user)
+})
+
 app.get('/', (req, res) => {
   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
